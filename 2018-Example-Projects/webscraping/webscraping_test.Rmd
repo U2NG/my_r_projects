@@ -1,0 +1,16 @@
+---
+title: "Webscraping-test"
+author: "Reid Otsuji"
+date: "2/2/2018"
+output: html_document
+---
+```{r}
+install.packages("rvest")
+library(rvest)
+```
+
+
+
+https://blog.rstudio.com/2014/11/24/rvest-easy-web-scraping-with-r/
+
+

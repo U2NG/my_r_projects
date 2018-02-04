@@ -1,0 +1,17 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+install.packages("sf")
+
+library(sf)
+library(tidyverse)
+library(viridis)
+library(rvest)
+```
+
+http://strimas.com/r/tidy-sf/
+
+
