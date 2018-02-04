@@ -1,0 +1,137 @@
+---
+title: "dplyr practice using gapminder"
+output: html_notebook
+---
+
+
+
+```{r}
+install.packages("gapminder")
+```
+
+```{r}
+library(tidyverse)
+library(gapminder)
+```
+
+```{r}
+gapminder
+```
+
+# Using Filter()
+
+
+```{r}
+filter(gapminder, country == "New Zealand")
+```
+```{r}
+filter(gapminder, country == "United States")
+```
+
+```{r}
+filter(gapminder, continent == "Oceania")
+```
+
+```{r}
+filter(gapminder, lifeExp > 82)
+```
+
+```{r}
+filter(gapminder, country == "New Zealand", year > 2000)
+```
+
+```{r}
+filter(gapminder, country == "United States", year < 1970)
+```
+
+```{r}
+filter(gapminder, year == 2007, lifeExp < 50)
+```
+
+```{r}
+filter(gapminder,
+ country %in% c("Canada", "New Zealand", "United States"))
+```
+
+```{r echo=TRUE}
+filter(gapminder, country == "United States") %>% 
+  ggplot() + 
+  geom_line(mapping = aes(lifeExp, year))
+```
+
+
+# Using arrange()
+
+```{r}
+arrange(gapminder, lifeExp)
+```
+
+#  desc()
+
+```{r}
+# example
+arrange(gapminder, desc(lifeExp))
+```
+
+
+
+```{r}
+arrange(gapminder, pop)
+```
+
+```{r}
+arrange(gapminder, desc(gdpPercap))
+```
+
+
+```{r}
+gapminder_2007 <- gapminder %>%  
+  filter(year == 2007) %>% 
+  arrange(desc(lifeExp))
+
+gapminder_2007
+
+```
+
+# mutate()
+```{r}
+gapminder %>% 
+  mutate(gpd = gdpPercap * pop)
+```
+
+
+```{r}
+gapminder %>% 
+  mutate(gpd = gdpPercap * pop, pop_mill = round(pop/1000000))
+```
+
+# lag()
+```{r}
+gapminder %>% 
+  mutate(prev_lifeExp = lag(lifeExp))
+```
+
+```{r}
+gapminder %>% 
+  summarise(mean_life = mean(lifeExp))
+```
+
+```{r}
+gapminder %>% 
+  summarise(mean_life = mean(lifeExp), min_life = min(lifeExp))
+```
+
+```{r}
+gapminder %>% 
+  summarise(first_min = first(year), last_max = last(year), total_countries = n_distinct(country))
+```
+
+```{r echo=TRUE}
+gapminder %>% 
+  filter(continent == "Africa", year == 2007) %>% 
+  summarize(uniq_countries = n_distinct(country) , med_lifeExp = median(lifeExp))
+```
+
+# group_by()
+
+
